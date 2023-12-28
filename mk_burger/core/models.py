@@ -13,7 +13,7 @@ class BaseModel(models.Model):
         abstract = True
 
 
-class IngredientsBaseModel(BaseModel):
+class AbastracBaseModel(BaseModel):
     tipo = models.CharField("Tipo", max_length=TYPE_NAME_LENGTH)
 
     class Meta:
@@ -24,13 +24,21 @@ class IngredientsBaseModel(BaseModel):
         return self.tipo
 
 
-class Bread(IngredientsBaseModel):
+class Bread(AbastracBaseModel):
     ...
 
 
-class Meat(IngredientsBaseModel):
+class Meat(AbastracBaseModel):
     ...
 
 
-class Optional(IngredientsBaseModel):
-    ...
+class Optional(AbastracBaseModel):
+    class Meta:
+        ordering = ("tipo",)
+        verbose_name_plural = "Optional"
+
+
+class Status(AbastracBaseModel):
+    class Meta:
+        ordering = ("tipo",)
+        verbose_name_plural = "status"

@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 
-from mk_burger.core.models import Bread, Meat, Optional
+from mk_burger.core.models import Bread, Meat, Optional, Status
 
 
 @pytest.fixture
@@ -25,6 +25,11 @@ def optional(db):
 
 
 @pytest.fixture
+def status_burger(db):
+    return Status.objects.create(tipo="Solicitado")
+
+
+@pytest.fixture
 def bread_list(db):
     Bread.objects.create(tipo="Italiano Branco")
     Bread.objects.create(tipo="3 Queijos")
@@ -40,6 +45,14 @@ def meat_list(db):
 
 
 @pytest.fixture
-def optionais(db):
+def optionais(db):  # TODO: chamar de optional_list
     Optional.objects.create(tipo="Bacon")
+    return Optional.objects.all()
+
+
+@pytest.fixture
+def status_list(db):
+    Status.objects.create(tipo="Solicitado")
+    Status.objects.create(tipo="Em produção")
+    Status.objects.create(tipo="Finalizado")
     return Optional.objects.all()
