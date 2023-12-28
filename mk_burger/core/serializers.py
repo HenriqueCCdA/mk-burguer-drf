@@ -1,6 +1,15 @@
 from rest_framework import serializers
 
-from mk_burger.core.models import Bread, Meat, Optional
+from mk_burger.core.models import Bread, Meat, Optional, Status
+
+
+class StatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Status
+        fields = (
+            "id",
+            "tipo",
+        )
 
 
 class BreadSerializer(serializers.ModelSerializer):

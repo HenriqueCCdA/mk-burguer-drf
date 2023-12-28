@@ -3,6 +3,7 @@ from mk_burger.core.serializers import (
     IngredientSerializer,
     MeatSerializer,
     OptionalSerializer,
+    StatusSerializer,
 )
 
 
@@ -26,6 +27,14 @@ def test_serializer_optionais(optionais):
     serializer = OptionalSerializer(instance=optionais, many=True)
 
     for d, e in zip(optionais, serializer.data):
+        assert e["id"] == d.id
+        assert e["tipo"] == d.tipo
+
+
+def test_serializer_status(status_list):
+    serializer = StatusSerializer(instance=status_list, many=True)
+
+    for d, e in zip(status_list, serializer.data):
         assert e["id"] == d.id
         assert e["tipo"] == d.tipo
 

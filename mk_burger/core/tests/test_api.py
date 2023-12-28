@@ -1,11 +1,9 @@
 from django.shortcuts import resolve_url
 from rest_framework import status
 
-URL = resolve_url("core:ingredientes")
-
 
 def test_ingredientes_list(client, bread_list, meat_list, optionais):
-    resp = client.get(URL)
+    resp = client.get(resolve_url("core:ingredientes"))
 
     assert resp.status_code == status.HTTP_200_OK
 
@@ -32,5 +30,19 @@ def test_ingredientes_list(client, bread_list, meat_list, optionais):
     assert len(body["opcionais"]) == 1
 
     for r, e in zip(body["opcionais"], optionais):
+        assert r["id"] == e.id
+        assert r["tipo"] == e.tipo
+
+
+def test_status_list(client, status_list):
+    resp = client.get(resolve_url("core:status"))
+
+    assert resp.status_code == status.HTTP_200_OK
+
+    body = resp.json()
+
+    assert len(body) == 3
+
+    for r, e in zip(body, status_list):
         assert r["id"] == e.id
         assert r["tipo"] == e.tipo
