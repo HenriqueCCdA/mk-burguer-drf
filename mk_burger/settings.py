@@ -29,6 +29,8 @@ INSTALLED_APPS = [
     "django_extensions",
     #
     "rest_framework",
+    #
+    "mk_burger.core",
 ]
 
 if DOC_API:

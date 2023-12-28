@@ -1,13 +1,8 @@
 import pytest
 from rest_framework import status
-from rest_framework.test import APIClient
 
 
-@pytest.fixture
-def client():
-    return APIClient()
-
-
+@pytest.mark.integration
 def test_root(client):
     resp = client.get("/")
 
