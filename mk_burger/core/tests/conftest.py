@@ -22,3 +22,24 @@ def meat(db):
 @pytest.fixture
 def optional(db):
     return Optional.objects.create(tipo="Maminha")
+
+
+@pytest.fixture
+def bread_list(db):
+    Bread.objects.create(tipo="Italiano Branco")
+    Bread.objects.create(tipo="3 Queijos")
+    return Bread.objects.all()
+
+
+@pytest.fixture
+def meat_list(db):
+    Meat.objects.create(tipo="Maminha")
+    Meat.objects.create(tipo="Alcatra")
+    Meat.objects.create(tipo="Picanha")
+    return Meat.objects.all()
+
+
+@pytest.fixture
+def optionais(db):
+    Optional.objects.create(tipo="Bacon")
+    return Optional.objects.all()

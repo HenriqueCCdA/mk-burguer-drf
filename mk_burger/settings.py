@@ -127,3 +127,8 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     "COMPONENT_SPLIT_REQUEST": True,
 }
+
+
+SHELL_PLUS_IMPORTS = [
+    "from mk_burger.core.serializers import BreadSerializer, MeatSerializer, OptionalSerializer, IngredientSerializer",
+]

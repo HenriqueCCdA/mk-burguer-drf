@@ -1,34 +1,10 @@
-import pytest
 from django.shortcuts import resolve_url
 from rest_framework import status
-
-from mk_burger.core.models import Bread, Meat, Optional
 
 URL = resolve_url("core:ingredientes")
 
 
-@pytest.fixture
-def breads(db):
-    Bread.objects.create(tipo="Italiano Branco")
-    Bread.objects.create(tipo="3 Queijos")
-    return Bread.objects.all()
-
-
-@pytest.fixture
-def meats(db):
-    Meat.objects.create(tipo="Maminha")
-    Meat.objects.create(tipo="Alcatra")
-    Meat.objects.create(tipo="Picanha")
-    return Meat.objects.all()
-
-
-@pytest.fixture
-def optionais(db):
-    Optional.objects.create(tipo="Bacon")
-    return Optional.objects.all()
-
-
-def test_ingredientes_list(client, breads, meats, optionais):
+def test_ingredientes_list(client, bread_list, meat_list, optionais):
     resp = client.get(URL)
 
     assert resp.status_code == status.HTTP_200_OK
@@ -39,7 +15,7 @@ def test_ingredientes_list(client, breads, meats, optionais):
 
     assert len(body["paes"]) == 2
 
-    for r, e in zip(body["paes"], breads):
+    for r, e in zip(body["paes"], bread_list):
         assert r["id"] == e.id
         assert r["tipo"] == e.tipo
 
@@ -47,7 +23,7 @@ def test_ingredientes_list(client, breads, meats, optionais):
 
     assert len(body["carnes"]) == 3
 
-    for r, e in zip(body["carnes"], meats):
+    for r, e in zip(body["carnes"], meat_list):
         assert r["id"] == e.id
         assert r["tipo"] == e.tipo
 

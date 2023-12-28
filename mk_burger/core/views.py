@@ -1,27 +1,30 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from mk_burger.core.models import Bread, Meat, Optional
-
-
-class RootView(APIView):
-    def get(self, request):
-        return Response("Ok")
+from mk_burger.core.serializers import IngredientSerializer
 
 
 class IngredientesList(APIView):
+    @extend_schema(
+        responses=IngredientSerializer,
+    )
     def get(self, request):
+        """Lista os igredientes"""
+
         bread_list = Bread.objects.all()
         meat_list = Meat.objects.all()
         optional_list = Optional.objects.all()
 
-        dict_ = {
-            "paes": [{"id": item.id, "tipo": item.tipo} for item in bread_list],
-            "carnes": [{"id": item.id, "tipo": item.tipo} for item in meat_list],
-            "opcionais": [{"id": item.id, "tipo": item.tipo} for item in optional_list],
-        }
-
-        return Response(dict_)
+        serializer = IngredientSerializer(
+            {
+                "paes": bread_list,
+                "carnes": meat_list,
+                "opcionais": optional_list,
+            }
+        )
+        return Response(serializer.data)
 
 
 ingredientes_list = IngredientesList.as_view()
