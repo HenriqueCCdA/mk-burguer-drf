@@ -5,10 +5,10 @@ import pytest
 
 @pytest.mark.unity
 def test_model_fiels(burger):
-    assert burger._meta.get_field("name")
-    assert burger._meta.get_field("meat")
-    assert burger._meta.get_field("bread")
-    assert burger._meta.get_field("optionais")
+    assert burger._meta.get_field("nome")
+    assert burger._meta.get_field("carne")
+    assert burger._meta.get_field("pao")
+    assert burger._meta.get_field("opcionais")
     assert burger._meta.get_field("status")
     assert burger._meta.get_field("is_active")
     assert burger._meta.get_field("created_at")
@@ -23,7 +23,7 @@ def test_create_at_and_modified_at(burger):
 
 @pytest.mark.unity
 def test_str(burger):
-    assert str(burger) == burger.name
+    assert str(burger) == burger.nome
 
 
 @pytest.mark.unity

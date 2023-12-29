@@ -6,6 +6,6 @@ app_name = "core"
 urlpatterns = [
     path("ingredientes/", ingredientes_list, name="ingredientes"),
     path("status/", status_list, name="status"),
-    path("burger/", burger_lc, name="burger-list-create"),
-    path("burger/<int:pk>", burger_rud, name="burger-retrieve-update-destroy"),
+    path("burgers/", burger_lc, name="burger-list-create"),
+    path("burgers/<int:pk>/", burger_rud, name="burger-retrieve-update-destroy"),
 ]

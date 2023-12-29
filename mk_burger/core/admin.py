@@ -91,9 +91,9 @@ class StatusAdmin(admin.ModelAdmin):
 class BurgerAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "name",
-        "meat",
-        "bread",
+        "nome",
+        "carne",
+        "pao",
         "status",
         "is_active",
         "created_at",

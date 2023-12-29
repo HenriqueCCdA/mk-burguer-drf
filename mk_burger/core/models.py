@@ -45,13 +45,13 @@ class Status(AbastracBaseModel):
 
 
 class Burger(BaseModel):
-    name = models.CharField("nome", max_length=50)
+    nome = models.CharField("nome", max_length=50)
 
-    meat = models.ForeignKey(Meat, verbose_name="carne", on_delete=models.CASCADE)
-    bread = models.ForeignKey(Bread, verbose_name="pao", on_delete=models.CASCADE)
+    carne = models.ForeignKey(Meat, verbose_name="carne", on_delete=models.CASCADE)
+    pao = models.ForeignKey(Bread, verbose_name="pao", on_delete=models.CASCADE)
     status = models.ForeignKey(Status, verbose_name="status", on_delete=models.CASCADE)
 
-    optionais = models.ManyToManyField(Optional, verbose_name="opcionais")
+    opcionais = models.ManyToManyField(Optional, verbose_name="opcionais")
 
     def __str__(self):
-        return self.name
+        return self.nome

@@ -19,21 +19,21 @@ def test_positive_list_burgers(client, burger_list):
 
     for e, b in zip(burger_list, body):
         assert e.id == b["id"]
-        assert e.name == b["name"]
-        assert e.meat.id == b["meat"]
-        assert e.bread.id == b["bread"]
-        assert e.status.id == b["status"]
-        assert list(e.optionais.all().values_list("id", flat=True)) == b["optionais"]
+        assert e.nome == b["nome"]
+        assert e.carne.tipo == b["carne"]
+        assert e.pao.tipo == b["pao"]
+        assert e.status.tipo == b["status"]
+        assert list(e.opcionais.all().values_list("tipo", flat=True)) == b["opcionais"]
 
 
 @pytest.mark.integration
 def test_positive_create_burgers(client, bread, meat, status_burger, optional):
     data = {
-        "name": "Henrique",
-        "bread": bread.id,
-        "meat": meat.id,
+        "nome": "Henrique",
+        "pao": bread.id,
+        "carne": meat.id,
         "status": status_burger.id,
-        "optionais": [optional.id],
+        "opcionais": [optional.id],
     }
 
     resp = client.post(URL, data=data, format="json")
@@ -45,11 +45,11 @@ def test_positive_create_burgers(client, bread, meat, status_burger, optional):
     burger_db = Burger.objects.first()
 
     assert burger_db.id == body["id"]
-    assert burger_db.name == body["name"]
-    assert burger_db.meat.id == body["meat"]
-    assert burger_db.bread.id == body["bread"]
-    assert burger_db.status.id == body["status"]
-    assert list(burger_db.optionais.all().values_list("id", flat=True)) == body["optionais"]
+    assert burger_db.nome == body["nome"]
+    assert burger_db.carne.tipo == body["carne"]
+    assert burger_db.pao.tipo == body["pao"]
+    assert burger_db.status.tipo == body["status"]
+    assert list(burger_db.opcionais.all().values_list("tipo", flat=True)) == body["opcionais"]
 
 
 @pytest.mark.integration
@@ -84,11 +84,11 @@ def test_positive_get_burgers(client, burger):
     body = resp.json()
 
     assert body["id"] == burger.pk
-    assert body["name"] == burger.name
-    assert body["bread"] == burger.bread.pk
-    assert body["meat"] == burger.meat.pk
-    assert body["status"] == burger.status.pk
-    assert body["optionais"] == list(burger.optionais.all().values_list("id", flat=True))
+    assert body["nome"] == burger.nome
+    assert body["pao"] == burger.pao.tipo
+    assert body["carne"] == burger.carne.tipo
+    assert body["status"] == burger.status.tipo
+    assert body["opcionais"] == list(burger.opcionais.all().values_list("tipo", flat=True))
 
 
 @pytest.mark.integration
@@ -113,11 +113,11 @@ def test_positive_patch_burger(client, burger, status_list):
     body = resp.json()
 
     assert body["id"] == burger.pk
-    assert body["name"] == burger.name
-    assert body["bread"] == burger.bread.pk
-    assert body["meat"] == burger.meat.pk
-    assert body["status"] == new_status.pk
-    assert body["optionais"] == list(burger.optionais.all().values_list("id", flat=True))
+    assert body["nome"] == burger.nome
+    assert body["pao"] == burger.pao.tipo
+    assert body["carne"] == burger.carne.tipo
+    assert body["status"] == new_status.tipo
+    assert body["opcionais"] == list(burger.opcionais.all().values_list("tipo", flat=True))
 
 
 @pytest.mark.integration
