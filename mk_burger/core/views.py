@@ -1,5 +1,5 @@
 from drf_spectacular.utils import extend_schema
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -29,7 +29,6 @@ class IngredientesList(APIView):
         return Response(serializer.data)
 
 
-@extend_schema(summary="Lista o status", description="Lista os **status** disponiveis na plataforma")
 class StatusList(ListAPIView):
     serializer_class = StatusSerializer
     queryset = Status.objects.all()
@@ -40,6 +39,12 @@ class BurgerLC(ListCreateAPIView):
     queryset = Burger.objects.all()
 
 
+class BurgerRUD(RetrieveUpdateDestroyAPIView):
+    serializer_class = BurgerSerializer
+    queryset = Burger.objects.all()
+
+
 ingredientes_list = IngredientesList.as_view()
 status_list = StatusList.as_view()
 burger_lc = BurgerLC.as_view()
+burger_rud = BurgerRUD.as_view()
