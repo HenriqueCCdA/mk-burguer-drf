@@ -4,58 +4,12 @@ from rest_framework import status
 
 from mk_burger.core.models import Burger
 
-
-@pytest.mark.integration
-def test_ingredientes_list(client, bread_list, meat_list, optionais):
-    resp = client.get(resolve_url("core:ingredientes"))
-
-    assert resp.status_code == status.HTTP_200_OK
-
-    body = resp.json()
-
-    # paes
-
-    assert len(body["paes"]) == 2
-
-    for r, e in zip(body["paes"], bread_list):
-        assert r["id"] == e.id
-        assert r["tipo"] == e.tipo
-
-    # meat
-
-    assert len(body["carnes"]) == 3
-
-    for r, e in zip(body["carnes"], meat_list):
-        assert r["id"] == e.id
-        assert r["tipo"] == e.tipo
-
-    # optianal
-
-    assert len(body["opcionais"]) == 2
-
-    for r, e in zip(body["opcionais"], optionais):
-        assert r["id"] == e.id
-        assert r["tipo"] == e.tipo
-
-
-@pytest.mark.integration
-def test_status_list(client, status_list):
-    resp = client.get(resolve_url("core:status"))
-
-    assert resp.status_code == status.HTTP_200_OK
-
-    body = resp.json()
-
-    assert len(body) == 3
-
-    for r, e in zip(body, status_list):
-        assert r["id"] == e.id
-        assert r["tipo"] == e.tipo
+URL = resolve_url("core:burger_lc")
 
 
 @pytest.mark.integration
 def test_list_burgers(client, burger_list):
-    resp = client.get(resolve_url("core:burger_lc"))
+    resp = client.get(URL)
 
     assert resp.status_code == status.HTTP_200_OK
 
@@ -82,7 +36,7 @@ def test_create_burgers(client, bread, meat, status_burger, optional):
         "optionais": [optional.id],
     }
 
-    resp = client.post(resolve_url("core:burger_lc"), data=data, format="json")
+    resp = client.post(URL, data=data, format="json")
 
     assert resp.status_code == status.HTTP_201_CREATED
 
