@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #
+    "corsheaders",
     "django_extensions",
     #
     "rest_framework",
@@ -38,6 +39,7 @@ if DOC_API:
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -132,3 +134,6 @@ SPECTACULAR_SETTINGS = {
 SHELL_PLUS_IMPORTS = [
     "from mk_burger.core.serializers import BreadSerializer, MeatSerializer, OptionalSerializer, IngredientSerializer",
 ]
+
+
+CORS_ALLOWED_ORIGINS = config("CORS_ALLOWED_ORIGINS", cast=Csv(), default=None)
