@@ -1,7 +1,7 @@
 import pytest
 from rest_framework.test import APIClient
 
-from mk_burger.core.models import Bread, Meat, Optional, Status
+from mk_burger.core.models import Bread, Burger, Meat, Optional, Status
 
 
 @pytest.fixture
@@ -55,4 +55,12 @@ def status_list(db):
     Status.objects.create(tipo="Solicitado")
     Status.objects.create(tipo="Em produção")
     Status.objects.create(tipo="Finalizado")
-    return Optional.objects.all()
+    return Status.objects.all()
+
+
+@pytest.fixture
+def burger(bread_list, meat_list, optionais, status_list):
+    burger = Burger.objects.create(name="Henrique", bread=bread_list[0], meat=meat_list[0], status=status_list[0])
+    burger.optionais.add(*optionais)
+
+    return burger

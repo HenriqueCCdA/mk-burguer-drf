@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from mk_burger.core.models import Bread, Meat, Optional, Status
+from mk_burger.core.models import Bread, Burger, Meat, Optional, Status
 
 
 @admin.register(Bread)
@@ -79,6 +79,33 @@ class StatusAdmin(admin.ModelAdmin):
     list_filter = ("is_active",)
 
     search_fields = ("tipo",)
+
+    readonly_fields = (
+        "id",
+        "created_at",
+        "modified_at",
+    )
+
+
+@admin.register(Burger)
+class BurgerAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "meat",
+        "bread",
+        "status",
+        "is_active",
+        "created_at",
+        "created_at",
+    )
+
+    list_filter = (
+        "is_active",
+        "status",
+    )
+
+    search_fields = ("nome",)
 
     readonly_fields = (
         "id",
