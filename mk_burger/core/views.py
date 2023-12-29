@@ -1,10 +1,10 @@
 from drf_spectacular.utils import extend_schema
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from mk_burger.core.models import Bread, Meat, Optional, Status
-from mk_burger.core.serializers import IngredientSerializer, StatusSerializer
+from mk_burger.core.models import Bread, Burger, Meat, Optional, Status
+from mk_burger.core.serializers import BurgerSerializer, IngredientSerializer, StatusSerializer
 
 
 class IngredientesList(APIView):
@@ -35,5 +35,11 @@ class StatusList(ListAPIView):
     queryset = Status.objects.all()
 
 
+class BurgerLC(ListCreateAPIView):
+    serializer_class = BurgerSerializer
+    queryset = Burger.objects.all()
+
+
 ingredientes_list = IngredientesList.as_view()
 status_list = StatusList.as_view()
+burger_lc = BurgerLC.as_view()
