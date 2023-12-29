@@ -50,9 +50,19 @@ class BurgerSerializer(serializers.ModelSerializer):
         model = Burger
         fields = (
             "id",
-            "name",
-            "meat",
-            "bread",
+            "nome",
+            "carne",
+            "pao",
             "status",
-            "optionais",
+            "opcionais",
         )
+
+    def to_representation(self, instance):
+        return {
+            "id": instance.pk,
+            "nome": instance.nome,
+            "pao": instance.pao.tipo,
+            "carne": instance.carne.tipo,
+            "status": instance.status.tipo,
+            "opcionais": instance.opcionais.all().values_list("tipo", flat=True),
+        }

@@ -61,18 +61,18 @@ def status_list(db):
 
 @pytest.fixture
 def burger(bread_list, meat_list, optionais, status_list):
-    burger = Burger.objects.create(name="Henrique", bread=bread_list[0], meat=meat_list[0], status=status_list[0])
-    burger.optionais.add(*optionais)
+    burger = Burger.objects.create(nome="Henrique", pao=bread_list[0], carne=meat_list[0], status=status_list[0])
+    burger.opcionais.add(*optionais)
 
     return burger
 
 
 @pytest.fixture
 def burger_list(bread_list, meat_list, optionais, status_list):
-    burger = Burger.objects.create(name="Henrique", bread=bread_list[0], meat=meat_list[0], status=status_list[0])
-    burger.optionais.add(*optionais)
+    burger = Burger.objects.create(nome="Henrique", pao=bread_list[0], carne=meat_list[0], status=status_list[0])
+    burger.opcionais.add(*optionais)
 
-    burger = Burger.objects.create(name="Joao", bread=bread_list[1], meat=meat_list[1], status=status_list[1])
-    burger.optionais.add(optionais[0])
+    burger = Burger.objects.create(nome="Joao", pao=bread_list[1], carne=meat_list[1], status=status_list[1])
+    burger.opcionais.add(optionais[0])
 
     return Burger.objects.all()
