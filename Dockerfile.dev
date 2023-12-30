@@ -11,7 +11,7 @@ ENV PYTHONUNBUFFERED=1
 ENV POETRY_VIRTUALENVS_CREATE=false
 
 # Create the app user
-# RUN groupadd app && useradd -g app app && mkdir -p $USER_DIR
+RUN groupadd app && useradd -g app app && mkdir -p $USER_DIR
 
 # install depedencies for postgres
 RUN apt-get update && apt-get install -y\
@@ -30,8 +30,8 @@ RUN poetry install --no-interaction --no-cache
 
 COPY . .
 
-# RUN chown -R app:app $USER_DIR
-# USER app
+RUN chown -R app:app $USER_DIR
+USER app
 
 EXPOSE 8000
 
