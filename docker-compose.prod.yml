@@ -1,0 +1,58 @@
+services:
+
+  backend:
+    container_name: mk_burger_api
+    build:
+      dockerfile: ./Dockerfile.prod
+    image: mk_burger_api_prod:latest
+    command: >
+      wait-for-it database:5432 --timeout=20 -- bash -c "python manage.py migrate
+      && python manage.py collectstatic --noinput
+      && gunicorn -b backend:8000 --workers=3 mk_burger.wsgi --log-file=- --access-logfile=-"
+    restart: 'no'
+    environment:
+      - DEBUG=False
+      - DOC_API=True
+      - SECRET_KEY="Sua chave secreta aqui"
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+      - CORS_ALLOWED_ORIGINS=http://localhost:5173
+      - DATABASE_URL=postgres://mk_burger_user:123456@database/mk_burger_db
+    volumes:
+      - ./staticfiles:/home/app/staticfiles
+    networks:
+      - mk_burger_api_nw
+    depends_on:
+      - database
+      - nginx
+
+  database:
+    container_name: mk_burger_db
+    image: postgres:16.1-alpine
+    restart: 'no'
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - mk_burger_api_nw
+    environment:
+      - LC_ALL=C.UTF-8
+      - POSTGRES_PASSWORD=123456
+      - POSTGRES_USER=mk_burger_user
+      - POSTGRES_DB=mk_burger_db
+
+  nginx:
+    container_name: mk_burger_api_nginx
+    image: nginx:1.23.2-alpine
+    networks:
+      - mk_burger_api_nw
+    volumes:
+      - ./docker/nginx/:/etc/nginx/conf.d/
+      - ./staticfiles:/var/www/site/staticfiles
+    ports:
+      - 80:80
+
+volumes:
+  pg_data:
+
+networks:
+  mk_burger_api_nw:
+    driver: bridge

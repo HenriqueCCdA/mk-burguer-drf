@@ -71,7 +71,7 @@ jobs:
       run: cp .env_samples .env
 
     - name: Tests
-      run: poetry run pytest mk_burger --junitxml=test-result.xml --cov=tracker --cov-report=xml
+      run: poetry run pytest mk_burger --junitxml=test-result.xml --cov=mk_burger --cov-report=xml
 
     - name: Upload coverage reports to Codecov with GitHub Action
       uses: codecov/codecov-action@v3
