@@ -1,6 +1,6 @@
 # mk-burguer-drf
 
-![Imagem](./docs/img/)
+![Imagem](./docs/img/swagger.png)
 
 Api feita em DRF para o frontend [mk-burger](https://github.com/HenriqueCCdA/mk-burger-front)
 
