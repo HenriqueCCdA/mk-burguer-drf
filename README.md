@@ -1,5 +1,14 @@
 # mk-burguer-drf
-API DRF
+
+![Imagem](./docs/img/)
+
+Api feita em DRF para o frontend [mk-burger](https://github.com/HenriqueCCdA/mk-burger-front)
+
+| :placard: Vitrine.Dev |     |
+| -------------         | --- |
+| :sparkles: Nome       | `Make Burger API`
+| :label: Tecnologias   | `Django Rest Framework`, `Python`, `Postgres`, `Pytest`, `Docker`, `Poetry`, `Ruff`, `codecov`, `swagger`
+| :rocket: URL          |
 
 ## Desenvolvimento local
 
