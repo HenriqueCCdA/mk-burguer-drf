@@ -1,6 +1,6 @@
 # mk-burguer-drf
 
-![Imagem](./docs/img/swagger.png?text=imagem_do_projeto#vitrinede)
+![Imagem](./docs/img/swagger.png?text=imagem_do_projeto#vitrinede#vitrinedev)
 
 Api feita em DRF para o frontend [mk-burger](https://github.com/HenriqueCCdA/mk-burger-front)
 
